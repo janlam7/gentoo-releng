@@ -1,11 +1,11 @@
 subarch: amd64
-version_stamp: 2008.0
+version_stamp: 13.0.zfs
 target: livecd-stage1
 rel_type: default
 profile: default/linux/amd64/13.0/no-multilib
-snapshot: 2008.0
+snapshot: latest
 source_subpath: default/stage3-amd64-latest
-portage_confdir: /release/releng/releases/weekly/portage/installcd
+portage_confdir: /root/releng/releases/weekly/portage/installcd
 
 livecd/use:
 	deprecated
@@ -36,6 +36,7 @@ livecd/packages:
 	app-arch/unzip
 	app-crypt/gnupg
 	app-editors/mg
+	app-editors/vim
 	app-misc/screen
 	app-misc/vlock
 	app-portage/mirrorselect

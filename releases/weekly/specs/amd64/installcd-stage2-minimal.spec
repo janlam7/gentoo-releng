@@ -1,25 +1,26 @@
 subarch: amd64
-version_stamp: 2008.0
+version_stamp: 13.0.zfs
 target: livecd-stage2
 rel_type: default
 profile: default/linux/amd64/13.0/no-multilib
-snapshot: 2008.0
-source_subpath: default/livecd-stage1-amd64-2008.0
-portage_confdir: /release/releng/releases/weekly/portage/installcd
+snapshot: latest
+source_subpath: default/livecd-stage1-amd64-13.0.zfs
+portage_confdir: /root/releng/releases/weekly/portage/installcd
 
 livecd/bootargs: dokeymap
 livecd/cdtar: /usr/lib/catalyst/livecd/cdtar/isolinux-elilo-memtest86+-cdtar.tar.bz2
 livecd/fstype: squashfs
 livecd/gk_mainargs: --lvm --dmraid --mdadm --makeopts=-j8
-livecd/iso: install-amd64-minimal-2008.0.iso
+livecd/iso: install-amd64-minimal-13.0.zfs.iso
 livecd/type: gentoo-release-minimal
-livecd/volid: Gentoo Linux amd64 2008.0
+livecd/volid: Gentoo Linux amd64 13.0.zfs
+livecd/rcadd: sshd
 livecd/rcdel: keymaps|boot
 
 boot/kernel: gentoo
 
 boot/kernel/gentoo/sources: gentoo-sources
-boot/kernel/gentoo/config: /release/releng/releases/weekly/kconfig/amd64/installcd-3.8.13.config
+boot/kernel/gentoo/config: /root/releng/releases/weekly/kconfig/amd64/installcd-3.8.13.config
 boot/kernel/gentoo/use:
 	-*
 	alsa
@@ -76,6 +77,8 @@ boot/kernel/gentoo/use:
 	usb
 
 boot/kernel/gentoo/packages:
+	=sys-kernel/spl-9999
+	=sys-fs/zfs-9999
 ### These need to be added for software speech.
 	app-accessibility/espeakup
 	media-libs/alsa-oss
