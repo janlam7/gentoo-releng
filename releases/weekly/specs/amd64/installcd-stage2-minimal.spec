@@ -1,25 +1,26 @@
 subarch: amd64
-version_stamp: 20131205.zfs
+version_stamp: 20140808.zfs
 target: livecd-stage2
 rel_type: default
 profile: default/linux/amd64/13.0/no-multilib
 snapshot: latest
-source_subpath: default/livecd-stage1-amd64-20131205.zfs
+source_subpath: default/livecd-stage1-amd64-20140808.zfs
 portage_confdir: /root/releng/releases/weekly/portage/installcd
 
 livecd/bootargs: dokeymap
 livecd/cdtar: /usr/lib/catalyst/livecd/cdtar/isolinux-elilo-memtest86+-cdtar.tar.bz2
 livecd/fstype: squashfs
 livecd/gk_mainargs: --lvm --dmraid --mdadm --makeopts=-j8
-livecd/iso: install-amd64-minimal-20131205.zfs.iso
+livecd/iso: install-amd64-minimal-20140808.zfs.iso
 livecd/type: gentoo-release-minimal
-livecd/volid: Gentoo Linux amd64 20131205.zfs
+livecd/volid: Gentoo Linux amd64 20140808.zfs
 livecd/rcadd: sshd
 livecd/rcdel: keymaps|boot
 
 boot/kernel: gentoo
 
-boot/kernel/gentoo/sources: gentoo-sources
+boot/kernel/gentoo/sources: =gentoo-sources-3.14.14
+boot/kernel/gentoo/config: /root/releng/releases/weekly/kconfig/amd64/installcd-3.14.14.config
 boot/kernel/gentoo/use:
 	-*
 	alsa
@@ -77,8 +78,9 @@ boot/kernel/gentoo/use:
 	usb
 
 boot/kernel/gentoo/packages:
-	=sys-kernel/spl-9999
-	=sys-fs/zfs-9999
+	=sys-kernel/spl-0.6.3
+	=sys-fs/zfs-0.6.3
+	sys-fs/btrfs-progs
 ### These need to be added for software speech.
 	app-accessibility/espeakup
 	media-libs/alsa-oss
