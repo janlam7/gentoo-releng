@@ -59,6 +59,7 @@ livecd/packages:
 	net-wireless/b43-fwcutter
 ### Masked (~keywords)
 #	net-wireless/bcm43xx-fwcutter
+	net-wireless/iw
 	net-wireless/rfkill
 	net-wireless/wireless-tools
 	net-wireless/wpa_supplicant
@@ -76,10 +77,12 @@ livecd/packages:
 	sys-apps/sdparm
 	sys-block/parted
 	sys-block/partimage
+	sys-fs/btrfs-progs
 	sys-fs/cryptsetup
 	sys-fs/dmraid
 	sys-fs/dosfstools
 	sys-fs/e2fsprogs
+	sys-fs/f2fs-tools
 	sys-fs/jfsutils
 	sys-fs/lsscsi
 	sys-fs/lvm2
