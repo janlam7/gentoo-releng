@@ -19,7 +19,7 @@ livecd/rcdel: keymaps|boot
 boot/kernel: gentoo
 
 boot/kernel/gentoo/sources: hardened-sources
-boot/kernel/gentoo/config: /release/releng/releases/weekly/kconfig/amd64/admincd-3.14.5-r2.config
+boot/kernel/gentoo/config: /release/releng/releases/weekly/kconfig/amd64/admincd-3.18.9.config
 boot/kernel/gentoo/use:
 	-*
 	alsa
@@ -84,9 +84,10 @@ boot/kernel/gentoo/packages:
 
 	sys-apps/pcmciautils
 	sys-kernel/linux-firmware
-	sys-kernel/spl
-	sys-fs/zfs
-	sys-fs/zfs-kmod
+#	ZFS is disabled until spl can build with CONFIG_PAX_RANDKSTACK
+#	sys-kernel/spl
+#	sys-fs/zfs
+#	sys-fs/zfs-kmod
 
 livecd/unmerge:
 	app-admin/eselect

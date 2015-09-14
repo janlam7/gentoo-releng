@@ -29,6 +29,11 @@ prepare_confs() {
         -e "s:FLAVOR:${flavor}:g" \
         -e "s:MYCATALYST:$(pwd):g" \
         >  stage${s}-${arch}-musl-${flavor}.conf
+
+    portage_confdir=$(grep portage_confdir stage${s}-${arch}-musl-${flavor}.conf \
+      | sed -e 's/^.*:[ \t]*//')
+    [[ ! -e ${portage_confdir} ]] && sed -i -e '/^portage_confdir/d' \
+      stage${s}-${arch}-musl-${flavor}.conf
   done
 
   sed -i "/^chost/d" stage3-${arch}-musl-${flavor}.conf
@@ -43,19 +48,19 @@ main() {
   catalyst -s current | tee -a zzz.log >snapshot.log 2>snapshot.err
 
   for arch in amd64 i686; do
-    for flavor in vanilla hardened; do
+    for flavor in hardened vanilla; do
       prepare_confs ${arch} ${flavor}
     done
   done
-  
+
+  # The parallelization `( do_stages ... ) &` doesn't work here
+  # if catalyst is using snapcache, bug #519656
   for arch in amd64 i686; do
-    for flavor in vanilla hardened; do
-      do_stages ${arch} ${flavor}
-      ret=$?
-      if [[ $? == 1 ]]; then
-         echo "FAILURE at ${arch} ${flavor} " | tee zzz.log
-         return 1
-      fi
+    for flavor in hardened vanilla; do
+      (
+        do_stages ${arch} ${flavor}
+        [[ $? == 1 ]] && echo "FAILURE at ${arch} ${flavor} " | tee zzz.log
+      ) &
     done
   done
 }

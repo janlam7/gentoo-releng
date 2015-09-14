@@ -5,7 +5,7 @@ app-arch/sharutils
 app-arch/unrar
 app-arch/xarchiver
 app-cdr/cdrtools
-app-editors/leafpad
+app-editors/mousepad
 app-editors/nano
 app-editors/vim
 app-office/abiword
@@ -21,6 +21,7 @@ media-sound/alsa-utils
 net-irc/hexchat
 net-misc/dhcpcd
 net-misc/openssh
+net-misc/tor
 sys-apps/gradm
 sys-apps/iproute2
 sys-boot/grub
@@ -32,7 +33,8 @@ sys-fs/mtools
 sys-fs/squashfs-tools
 sys-fs/eudev
 sys-kernel/linux-firmware
-sys-power/cpufrequtils
+sys-power/cpupower
+sys-power/upower-pm-utils
 sys-process/at
 sys-process/fcron
 www-client/firefox

@@ -27,11 +27,15 @@ prepare_confs() {
         -e "s|^cflags:.*|cflags: -O2 -march=mips3 -mplt -Wa,-mfix-loongson2f-nop -pipe|" \
         -e "s|^cxxflags:.*|cxxflags: -O2 -march=mips3 -mplt -Wa,-mfix-loongson2f-nop -pipe|" \
         >  stage${s}-${arch}-musl-${flavor}.conf
+
+    portage_confdir=$(grep portage_confdir stage${s}-${arch}-musl-${flavor}.conf \
+      | sed -e 's/^.*:[ \t]*//')
+    [[ ! -e ${portage_confdir} ]] && sed -i -e '/^portage_confdir/d' \
+      stage${s}-${arch}-musl-${flavor}.conf
   done
 
   sed -i "/^chost/d" stage3-${arch}-musl-${flavor}.conf
 }
-
 
 
 main() {
@@ -44,15 +48,12 @@ main() {
       prepare_confs ${arch} ${flavor}
     done
   done
-  
+
+  # No parallelization for mips.  Its too hard on the cpu!
   for arch in mipsel3; do
     for flavor in vanilla; do
       do_stages ${arch} ${flavor}
-      ret=$?
-      if [[ $? == 1 ]]; then
-         echo "FAILURE at ${arch} ${flavor} " | tee zzz.log
-         return 1
-      fi
+      [[ $? == 1 ]] && echo "FAILURE at ${arch} ${flavor} " | tee zzz.log
     done
   done
 }
